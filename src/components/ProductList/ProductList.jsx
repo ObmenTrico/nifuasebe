@@ -5,9 +5,9 @@ import {useTelegram} from "../../hooks/useTelegram";
 import {useCallback, useEffect} from "react";
 
 const products = [
-    {id: '1', title: 'Обмен', price: 5000, description: 'Обмен Русский мир на Триколор'},
-    {id: '2', title: 'Дополнительно', price: 12000, description: 'Дополнительный приемник Русский Мир'},
-    {id: '2', title: 'Установка', price: 12000, description: 'ДПервичная установка Триколор'},
+    {id: '1', title: 'Обмен', price: 7500, description: 'Обмен Русский мир на Триколор'},
+    {id: '2', title: 'Дополнительно', price: 5000, description: 'Дополнительный приемник Русский Мир'},
+    {id: '2', title: 'Установка', price: 12000, description: 'Первичная установка Триколор'},
 ]
 
 const getTotalPrice = (items = []) => {
