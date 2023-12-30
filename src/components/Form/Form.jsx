@@ -32,7 +32,7 @@ const Form = () => {
 
     useEffect(() => {
         if(!street || !country) {
-            tg.MainButton.show();
+            tg.MainButton.hide();
         } else {
             tg.MainButton.show();
         }
@@ -56,7 +56,7 @@ const Form = () => {
             <input
                 className={'input'}
                 type="text"
-                placeholder={'Страна'}
+                placeholder={'Населенный пункт'}
                 value={country}
                 onChange={onChangeCountry}
             />
