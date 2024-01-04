@@ -6,6 +6,7 @@ const Form = () => {
     const [uname, setUname] = useState('');
     const [punkt, setPunkt] = useState('');
     const [street, setStreet] = useState('');
+    const [subject, setSubject] = useState('physical');
     const {tg} = useTelegram();
 
     const onSendData = useCallback(() => {
@@ -13,6 +14,7 @@ const Form = () => {
             uname,
             punkt,
             street,
+            subject
         }
         tg.sendData(JSON.stringify(data));
     }, [uname, punkt, street, subject])
@@ -50,6 +52,10 @@ const Form = () => {
         setStreet(e.target.value)
     }
 
+    const onChangeSubject = (e) => {
+        setSubject(e.target.value)
+    }
+
     return (
         <div className={"form"}>
             <h3>Введите ваши данные</h3>
@@ -74,6 +80,10 @@ const Form = () => {
                 value={street}
                 onChange={onChangeStreet}
             />
+            <select value={subject} onChange={onChangeSubject} className={'select'}>
+                <option value={'physical'}>Физ. лицо</option>
+                <option value={'legal'}>Юр. лицо</option>
+            </select>
         </div>
     );
 };
