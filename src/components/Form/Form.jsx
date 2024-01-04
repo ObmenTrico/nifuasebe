@@ -6,7 +6,7 @@ const Form = () => {
     const [uname, setUname] = useState('');
     const [punkt, setPunkt] = useState('');
     const [street, setStreet] = useState('');
-    const [subject, setSubject] = useState('physical');
+    const [phone, setPhone] = useState('');
     const {tg} = useTelegram();
 
     const onSendData = useCallback(() => {
@@ -14,10 +14,10 @@ const Form = () => {
             uname,
             punkt,
             street,
-            subject
+            phone,
         }
         tg.sendData(JSON.stringify(data));
-    }, [uname, punkt, street, subject])
+    }, [uname, punkt, street, phone])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
@@ -33,12 +33,12 @@ const Form = () => {
     }, [])
 
     useEffect(() => {
-        if(!uname || !street || !punkt) {
+        if(!uname || !street || !punkt ||!phone) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
         }
-    }, [uname, punkt, street])
+    }, [uname, punkt, street, phone])
 
     const onChangeUname = (e) => {
         setUname(e.target.value)
@@ -51,9 +51,8 @@ const Form = () => {
     const onChangeStreet = (e) => {
         setStreet(e.target.value)
     }
-
-    const onChangeSubject = (e) => {
-        setSubject(e.target.value)
+    const onChangePhone = (e) => {
+        setPhone(e.target.value)
     }
 
     return (
@@ -62,28 +61,31 @@ const Form = () => {
             <input
                 className={'input'}
                 type="text"
-                placeholder={'Введите Ваше имя'}
+                placeholder={'Напишите Ваше имя'}
                 value={uname}
                 onChange={onChangeUname}
             />
             <input
                 className={'input'}
                 type="text"
-                placeholder={'Населенный пункт'}
+                placeholder={'Напишите Ваш населенный пункт'}
                 value={punkt}
                 onChange={onChangePunkt}
             />
             <input
                 className={'input'}
                 type="text"
-                placeholder={'Улица'}
+                placeholder={'Напишите Вашу улицу, номер дома, квартиры'}
                 value={street}
                 onChange={onChangeStreet}
             />
-            <select value={subject} onChange={onChangeSubject} className={'select'}>
-                <option value={'physical'}>Физ. лицо</option>
-                <option value={'legal'}>Юр. лицо</option>
-            </select>
+            <input
+                className={'input'}
+                type="text"
+                placeholder={'Напишите номер телефона для связи'}
+                value={phone}
+                onChange={onChangePhone}
+            />
         </div>
     );
 };
