@@ -7,7 +7,7 @@ import ProductItem from "../ProductItem/ProductItem";
 
 
 import './ProductList.css';
-import ProductItem from "../ProductItem/ProductItem";
+//import ProductItem from "../ProductItem/ProductItem";
 
 const products = [
     {id: '1', title: 'Обмен', price: 7500, description: 'Обмен Русский мир на Триколор'},
