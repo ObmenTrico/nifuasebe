@@ -120,7 +120,6 @@ const Form = () => {
 
 
 
-            <div className={'list'}>
                 {products.map(item => (
                     <ProductItem
                         product={item}
@@ -128,7 +127,6 @@ const Form = () => {
                         className={'item'}
                     />
                 ))}
-            </div>
 
 
 
