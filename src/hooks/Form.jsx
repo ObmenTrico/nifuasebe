@@ -5,8 +5,10 @@ import ProductItem from "../ProductItem/ProductItem";
 
 
 
-//----------------------------------------------------------------------------------------------------------
+
 import '../ProductList/ProductList.css';
+//import ProductItem from "../ProductItem/ProductItem";
+
 const products = [
     {id: '1', title: 'Обмен', price: 7500, description: 'Обмен Русский мир на Триколор'},
     {id: '2', title: 'Дополнительно', price: 5000, description: 'Дополнительный приемник Русский Мир'},
@@ -17,20 +19,11 @@ const getTotalPrice = (items = []) => {
         return acc += item.price
     }, 0)
 }
-//----------------------------------------------------------------------------------------------------------
 
 
 
 
 const Form = () => {
-//----------------------------------------------------------------------------------------------------------
-    const [addedItems, setAddedItems] = useState([]);
-//    const {tg, queryId} = useTelegram();
-//----------------------------------------------------------------------------------------------------------
-
-
-
-
     const [uname, setUname] = useState('');
     const [punkt, setPunkt] = useState('');
     const [street, setStreet] = useState('');
@@ -43,18 +36,6 @@ const Form = () => {
             punkt,
             street,
             phone,
-
-
-
-
-//----------------------------------------------------------------------------------------------------------
-            products: addedItems,
-            totalPrice: getTotalPrice(addedItems),
-//            queryId,
-//----------------------------------------------------------------------------------------------------------
-
-
-
         }
         tg.sendData(JSON.stringify(data));
     }, [uname, punkt, street, phone])
@@ -79,25 +60,6 @@ const Form = () => {
             tg.MainButton.show();
         }
     }, [uname, punkt, street, phone])
-
-
-
-
-//----------------------------------------------------------------------------------------------------------
-    setAddedItems(newItems)
-
-    if(newItems.length === 0) {
-        tg.MainButton.hide();
-    } else {
-        tg.MainButton.show();
-        tg.MainButton.setParams({
-            text: `Купить ${getTotalPrice(newItems)}`
-        })
-    }
-//----------------------------------------------------------------------------------------------------------
-
-
-
 
     const onChangeUname = (e) => {
         setUname(e.target.value)
