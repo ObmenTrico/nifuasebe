@@ -1,6 +1,19 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './Form.css';
 import {useTelegram} from "../../hooks/useTelegram";
+import ProductItem from "../ProductItem/ProductItem";
+
+
+
+
+import './ProductList.css';
+import ProductItem from "../ProductItem/ProductItem";
+
+const products = [
+    {id: '1', title: 'Обмен', price: 7500, description: 'Обмен Русский мир на Триколор'},
+    {id: '2', title: 'Дополнительно', price: 5000, description: 'Дополнительный приемник Русский Мир'},
+    {id: '3', title: 'Установка', price: 12000, description: 'Первичная установка Триколор'},
+]
 
 
 
@@ -61,6 +74,28 @@ const Form = () => {
 
     return (
         <div className={"form"}>
+
+
+
+
+            <div className={'list'}>
+                {products.map(item => (
+                    <ProductItem
+                        product={item}
+                        onAdd={onAdd}
+                        className={'item'}
+                    />
+                ))}
+            </div>
+
+
+
+
+
+
+
+
+
             <h3>Введите ваши данные</h3>
             <input
                 className={'input'}
