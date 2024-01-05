@@ -6,7 +6,7 @@ import ProductItem from "../ProductItem/ProductItem";
 
 
 
-import './ProductList.css';
+import '../ProductList/ProductList.css';
 //import ProductItem from "../ProductItem/ProductItem";
 
 const products = [
