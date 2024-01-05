@@ -1,16 +1,17 @@
 {
-  "name": "tg-web-app-react",
+  "name": "demo",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@types/node": "^16.18.3",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "@vkruglikov/react-telegram-web-app": "^2.1.1",
+    "antd": "^5.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.9.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -18,6 +19,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "homepage": "./",
   "browserslist": {
     "production": [
       ">0.2%",
