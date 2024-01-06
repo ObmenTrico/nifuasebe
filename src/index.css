@@ -28,31 +28,6 @@ code {
     monospace;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.betaVersion {
-  padding: 10px 10px;
-  margin-bottom: 20px;
-  border: 1px solid #1777ff;
-}
-
-.App-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .contentWrapper {
   background: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color) !important;
@@ -68,11 +43,27 @@ code {
   background-color: unset !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  color: #0a0a0a;
+}
+
+.select {
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.underFormText {
+  padding-top: 3vh;
+  text-align: center;
+  color: darkred;
 }
