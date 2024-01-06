@@ -32,7 +32,7 @@ export const Form = () => {
         const checkToken = async () => {
             try {
                 const response = await axios.post(
-                    config.apiEndpoint + '/api/user/check',
+                    config.apiEndpoint + '/user/check',
                     { id: id, token: token }
                 )
                 if (response.data.error_code === 0) {
