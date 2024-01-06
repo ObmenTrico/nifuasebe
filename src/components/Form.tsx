@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {MainButton, MainButtonProps} from "@vkruglikov/react-telegram-web-app";
 import axios from 'axios';
+import {config} from "../config";
 
 export const Form = () => {
 
@@ -11,6 +12,9 @@ export const Form = () => {
     const [buttonState, setButtonState] = useState<
         { show: boolean; } & Pick<MainButtonProps, 'text' | 'progress' | 'disable'>>();
 
+    const [userData, setUserData] = useState({
+        "name": "", "town": "", "street": "", "mobile": "", "createdAt": "", "updatedAt": ""
+    });
     const [tokenOk, setTokenOk] = useState(false);
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
@@ -18,16 +22,17 @@ export const Form = () => {
 
     const sendData = () => {
         axios.post(
-            'https://tg.anidev.ru/api/user/add',
+            config.apiEndpoint + '/user/add',
             { id: id, token: token, name: name, town: town, street: street, mobile: mobile}
         )
+        setUserData({name: name, town: town, street: street, mobile: mobile, createdAt: '1', updatedAt: '1'})
     }
 
     useEffect(() => {
         const checkToken = async () => {
             try {
                 const response = await axios.post(
-                    'https://tg.anidev.ru/api/user/check',
+                    config.apiEndpoint + '/api/user/check',
                     { id: id, token: token }
                 )
                 if (response.data.error_code === 0) {
@@ -37,8 +42,21 @@ export const Form = () => {
                 console.error('Error checking token:', error.message);
             }
         };
-        checkToken();
-    }, []);
+        const downloadUser = async () => {
+            try {
+                const response = await axios.post(
+                    config.apiEndpoint + '/user/read',
+                    { id: id, token: token }
+                )
+                if (response.data.error_code === undefined) {
+                    setUserData(response.data);
+                }
+            } catch (error: any) {
+                console.error('Error checking token:', error.message);
+            }
+        };
+        checkToken().then(async () => await downloadUser());
+    }, [id, token]);
 
     useEffect(() => {
         if(name && town && street && mobile) {
@@ -51,6 +69,13 @@ export const Form = () => {
     return (
         <div className={"form"}>
             {tokenOk ? <></> : <p style={{color: "red", textAlign: "center"}}>No token or id found! Session not valid.</p>}
+            {userData.name && <>
+                <h3 style={{color: "green", textAlign: "center"}}>Вы уже ввели данные:</h3>
+                <p>Имя: {userData.name}</p>
+                <p>Населенный пункт: {userData.town}</p>
+                <p>Улица: {userData.street}</p>
+                <p>Телефона: {userData.mobile}</p>
+            </>}
             <h3 style={{textAlign: "center"}}>Введите данные для связи</h3>
             <input
                 className={'input'}
@@ -80,8 +105,8 @@ export const Form = () => {
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
             />
-            <div>{buttonState?.show ? <MainButton text={"Отправить"} onClick={() => sendData()} {...buttonState} /> :
-                <h4 className={"underFormText"}>Введите все данные что бы продолжить.</h4>
+            <div>{buttonState?.show ? <MainButton text={userData.name ? "Обновить" : "Отправить"} onClick={() => sendData()} {...buttonState} /> :
+                <h4 className={"underFormText"}>{userData.name ? "Если необходимо обновить данные введите" : "Введите"} все данные что бы продолжить</h4>
             }</div>
         </div>
     );
