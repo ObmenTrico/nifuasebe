@@ -1,7 +1,7 @@
-import React, {DispatchWithoutAction, FC, useEffect, useState} from "react";
+import React, {DispatchWithoutAction, FC} from "react";
 import {useThemeParams} from "@vkruglikov/react-telegram-web-app";
 import {ConfigProvider, theme} from "antd";
-import {Product, ProductList} from "./components/ProductList";
+import {ProductList} from "./components/ProductList";
 import {Route, Routes} from "react-router-dom";
 import {Form} from "./components/Form";
 
