@@ -11,17 +11,8 @@ export interface Product {
 
 export const ProductList: FC = () => {
     return (
-        <table>
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-                products
-            </tbody>
-        </table>
+        <div>
+            products
+        </div>
     );
 };
