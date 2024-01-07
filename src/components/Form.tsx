@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MainButton, MainButtonProps, useShowPopup} from "@vkruglikov/react-telegram-web-app";
 import axios from 'axios';
 import {config} from "../config";
@@ -48,6 +48,7 @@ export const Form: React.FC = () => {
                 }
             } catch (error: any) {
                 console.error('Error checking token:', error.message);
+                setTokenOk(false);
             }
         };
         const downloadUser = async () => {
@@ -63,11 +64,11 @@ export const Form: React.FC = () => {
                 console.error('Error checking token:', error.message);
             }
         };
-        checkToken().then(async (x: any) => {
+        checkToken().then(async () => {
             if (tokenOk)
                 await downloadUser()
         });
-    }, [id, token]);
+    }, []);
 
     useEffect(() => {
         if(name && town && street && mobile) {
@@ -79,7 +80,7 @@ export const Form: React.FC = () => {
 
     return (
         <div className={"form"}>
-            {tokenOk ? <></> : <p style={{color: "red", textAlign: "center"}}>No token or id found! Session not valid.</p>}
+            {tokenOk ? <></> : <p style={{color: "red", textAlign: "center"}}>Session not valid.</p>}
             {userData.name ? <>
                     <h3 style={{color: "green", textAlign: "center"}}>Вы уже ввели данные:</h3>
                     <p>Имя: {userData.name}</p>
