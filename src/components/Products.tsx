@@ -23,8 +23,6 @@ const Products: FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [tokenOk, setTokenOk] = useState(true);
     const [cart, setCart] = useState<{ id: number; tittle: string; price: number }[]>([]);
-    const [buttonState, setButtonState] = useState<
-        { show: boolean; } & Pick<MainButtonProps, 'text' | 'progress' | 'disable'>>();
     const _params = new URLSearchParams(window.location.search);
     const id = _params.get("id");
     const token = _params.get("token");
