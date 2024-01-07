@@ -1,11 +1,6 @@
-## install
+# Tg App
 
-Install certificate
+## Install
 
-```bash
-mkcert react-telegram-web-app.domain
-```
+uninstall psl
 
-Add domain to /etc/hosts as 127.0.0.1
-
-## OR you can edit .env file, and will configure how you want
