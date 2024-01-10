@@ -67,3 +67,18 @@ code {
   text-align: center;
   color: darkred;
 }
+
+.underFormTextGreen {
+  padding-top: 3vh;
+  text-align: center;
+  color: #098b00;
+}
+
+.formTable {
+  width: 100%;
+}
+
+.formTable td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
