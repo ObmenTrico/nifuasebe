@@ -27,6 +27,7 @@ const Products: React.FC = () => {
     const handleOnRef = (callback: Function) => { callbackRef.current = callback }
     const [products, setProducts] = useState<Product[]>([]);
     const [tokenState, setTokenState] = useState(0);
+    const [buttonState, setButtonState] = useState(0);
     const [userState, setUserState] = useState(-1);
     const [cart, setCart] = useState<Cart[]>([]);
     const _params = new URLSearchParams(window.location.search);
@@ -34,23 +35,27 @@ const Products: React.FC = () => {
     const token = _params.get("token");
 
     const sendData = () => {
+        setButtonState(1)
         const sd = callbackRef?.current?.()
         console.log("[Prod] callbackRef:", sd)
         if (sd){
+            setTimeout(function() {
+                console.log("Delayed 2 seconds");
+            }, 2000);
             axios.post(
                 config.apiEndpoint + '/order/add',
                 {id: id, token: token
                 }).then(async () =>{
-                    await showPopup({
-                        message: 'Заказ принят',
-                    })
-                    setCart([])
-                    setTokenState(1)
-                    setUserState(2)
-                }).catch(async () => {
-                    await showPopup({
-                        message: 'Ошибка',
-                    })
+                await showPopup({
+                    message: 'Заказ принят',
+                })
+                setCart([])
+                setTokenState(1)
+                setUserState(2)
+            }).catch(async () => {
+                await showPopup({
+                    message: 'Ошибка',
+                })
             })
         }
     }
@@ -88,13 +93,13 @@ const Products: React.FC = () => {
             await axios
                 .post(config.apiEndpoint + "/user/check", { token: token, id: id })
                 .then((response) => {
-                    if (response.data.error_code === 0){
-                        console.log("Token ok.")
-                        setTokenState(1)
+                        if (response.data.error_code === 0){
+                            console.log("Token ok.")
+                            setTokenState(1)
+                        }
+                        else
+                            setTokenState(2)
                     }
-                    else
-                        setTokenState(2)
-                }
                 )
                 .catch(() => setTokenState(2));
             await axios.post(config.apiEndpoint + '/user/read', { token: token, id: id })
@@ -148,8 +153,8 @@ const Products: React.FC = () => {
     return (
         <div className="products-list">
             {products.length === 0 && <Spin fullscreen/>}
-            {tokenState === 0 && <p style={{color: "green", textAlign: "center"}}>Загрузка...</p>}
-            {tokenState === 2 && <p style={{color: "red", textAlign: "center"}}>Session not valid.</p>}
+            {tokenState === 0 && <p style={{color: "green"}}>Загрузка...</p>}
+            {tokenState === 2 && <p style={{ color: "red" }}>Session not valid.</p>}
             {tokenState === 1 && userState !== 2 && <>{
                 products.map((product) => (
                     <Card key={product.id} className="product-card">
@@ -183,7 +188,8 @@ const Products: React.FC = () => {
                 </div>
                 <Form fromProducts setFormOk={setFormOk} onRef={handleOnRef}/>
                 <div>
-                    {getTotal() > 1 && formOk && <MainButton text={"Оформить заказ"} onClick={() => sendData()}/>}
+                    {getTotal() > 1 && formOk && buttonState === 0 && <MainButton text={"Оформить заказ"} onClick={() => sendData()}/>}
+                    {buttonState === 1 && <MainButton text={"Загрузка.."} progress/>}
                 </div>
             </>}
             {tokenState === 1 && userState === 2 && <>
