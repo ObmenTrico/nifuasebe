@@ -5,6 +5,7 @@ import { config } from "../config";
 import "./Products.css"
 import {MainButton, useShowPopup} from "@vkruglikov/react-telegram-web-app";
 import {Form} from "./Form";
+import {Already} from "./Already";
 
 interface Product {
     id: number
@@ -37,13 +38,15 @@ const Products: React.FC = () => {
         console.log("[Prod] callbackRef:", sd)
         if (sd){
             axios.post(
-                config.apiEndpoint + '/cart/order',
+                config.apiEndpoint + '/order/add',
                 {id: id, token: token
                 }).then(async () =>{
                     await showPopup({
                         message: 'Заказ принят',
                     })
                     setCart([])
+                    setTokenState(1)
+                    setUserState(2)
                 }).catch(async () => {
                     await showPopup({
                         message: 'Ошибка',
@@ -75,7 +78,8 @@ const Products: React.FC = () => {
             .then((response) => {
                 console.log("Sent cart:", cart, response.data);
             })
-            .catch((error) => console.error("Error sending to cart:", error));
+            .catch((error) => console.error("Error sending to cart:", error))
+        // eslint-disable-next-line
     }, [cart]);
 
 
@@ -124,6 +128,7 @@ const Products: React.FC = () => {
             await loadProducts()
             console.log("Ready.")
         });
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -182,7 +187,7 @@ const Products: React.FC = () => {
                 </div>
             </>}
             {tokenState === 1 && userState === 2 && <>
-                <p>Вы уже сделали заказ</p>
+                <Already product={products}/>
             </>}
         </div>
     );

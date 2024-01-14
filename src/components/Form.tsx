@@ -107,16 +107,19 @@ export class Form extends React.Component<FormProps>{
     buttonHandle(state: {}){
         this.setState(state)
         let _state = {...this.state, ...state}
+        const all = !!(_state.name && _state.town && _state.street && _state.mobile)
         if (!this.props.fromProducts) {
-            if(_state.name && _state.town && _state.street && _state.mobile) {
+            if(all) {
                 this.setState({button: true})
             } else {
                 this.setState({button: false})
             }
         } else {
-            if(_state.name && _state.town && _state.street && _state.mobile) {
+            if(all) {
                 this.props.setFormOk?.(true)
-            } else {
+            } else if (this.state.user.state > 0 && !(_state.name || _state.town || _state.street || _state.mobile)){
+                this.props.setFormOk?.(true)
+            }else {
                 this.props.setFormOk?.(false)
             }
         }
